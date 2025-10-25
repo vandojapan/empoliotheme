@@ -2655,77 +2655,118 @@ width:1px
   display: none !important;
 }
 
-/* 2. サムネイル画像を16:9に固定 */
-.snippet-thumbnail-container,
-.item-thumbnail {
+/* // CHANGED: Feed/list thumbnails are trimmed to 16:9 while keeping placeholders */
+.feed-view .snippet-thumbnail-container,
+.feed-view .item-thumbnail {
   position: relative;
   width: 100%;
-  padding-top: 56.25%; /* 16:9 比率 */
+  height: 0;
+  padding-top: 56.25%; /* 16:9 ratio */
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   background-color: #616161;
 }
 
-.snippet-thumbnail,
-.item-thumbnail img,
-.item-thumbnail a {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  background-size: cover !important;
-  background-position: center !important;
-  background-repeat: no-repeat !important;
+.feed-view .snippet-thumbnail,
+.feed-view .item-thumbnail a,
+.feed-view .item-thumbnail img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
-/* 16:9の箱は “padding-top だけで高さを作る”。heightは0に固定 */
-.PopularPosts .item-thumbnail{
-  position: relative !important;
-  display: block !important;
-  width: 100% !important;
-  height: 0 !important;              /* ←ココがポイント！ */
-  padding-top: 56.25% !important;    /* 16:9 */
-  overflow: hidden !important;
-  background-color: #616161;         /* 任意 */
+.feed-view .snippet-thumbnail {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-/* a はレイアウト用のブロックだけにして、高さは持たせない */
-.PopularPosts .item-thumbnail a{
-  position: static !important;
-  display: block !important;
-  width: 100% !important;
-  height: auto !important;           /* ←100%をやめる */
-  line-height: 0 !important;         /* 画像下のスキマ防止 */
+.feed-view .item-thumbnail img {
+  object-fit: cover;
 }
 
-/* 画像だけを絶対配置でフィットさせる */
-.PopularPosts .item-thumbnail img{
-  position: absolute !important;
-  inset: 0 !important;               /* top/right/bottom/left:0 */
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  display: block !important;
-}
-
-/* 記事ページの先頭画像用 */
-.item-view .snippet-thumbnail-container {
-  padding-top: 0% !important;
-  margin-bottom: 16px;
-  border-radius: 12px;
+.feed-view .item-thumbnail a {
   overflow: hidden;
 }
 
-.item-view .snippet-thumbnail {
+/* // CHANGED: Natural image ratios inside single or feed item bodies */
+.item-view .post-snippet-featured,
+.feed-view .post-snippet-featured {
+  margin: 0 0 24px;
+}
+
+.item-view .post-snippet-featured-image,
+.feed-view .post-snippet-featured-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* // CHANGED: Shared 16:9 crop for PopularPosts thumbnails */
+.PopularPosts .item-thumbnail {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 0;
+  padding-top: 56.25%;
+  overflow: hidden;
+  background-color: #616161;
+}
+
+.PopularPosts .item-thumbnail img {
   position: absolute;
   top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
 }
+
+.PopularPosts .item-thumbnail a {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  line-height: 0;
+}
+
+/* // CHANGED: Two-column cards on desktop */
+@media (min-width: 1024px) {
+  .feed-view .blog-posts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin: 0;
+    width: 100%;
+  }
+
+  .feed-view .blog-posts .post-outer,
+  .feed-view .post-wrapper,
+  .feed-view .inline-ad {
+    margin: 0;
+    width: auto;
+    float: none;
+  }
+
+  .feed-view .post-wrapper.hero {
+    grid-column: 1 / -1;
+  }
+
+  .feed-view .inline-ad {
+    grid-column: 1 / -1;
+  }
+}
+
 
 
 * {
@@ -2939,10 +2980,14 @@ width:1px
        <b:includable id='postBodySnippet' var='post'>
   <div class='post-body entry-content' expr:id='&quot;post-snippet-&quot; + data:post.id'>
     <b:with value='data:post.featuredImage ? data:post.featuredImage : data:post.firstImageUrl' var='thumb'>
-      <b:if cond='data:thumb and not data:view.isMultipleItems'>
-        <div class='snippet-thumbnail-container'>
-          <div class='snippet-thumbnail' expr:style='&quot;background-image:url(&quot; + resizeImage(data:thumb, 800, &quot;16:9&quot;).escaped + &quot;)&quot;'/>
-        </div>
+      <b:if cond='not data:view.isMultipleItems and data:thumb'>
+        <figure class='post-snippet-featured'>
+          <b:if cond='data:thumb.url'>
+            <img class='post-snippet-featured-image' expr:alt='data:post.title' expr:src='data:thumb.url' loading='lazy'/>
+          <b:else/>
+            <img class='post-snippet-featured-image' expr:alt='data:post.title' expr:src='data:thumb' loading='lazy'/>
+          </b:if>
+        </figure>
       </b:if>
     </b:with>
     <div style='clear: both;'/>
@@ -4016,21 +4061,17 @@ width:1px
 </b:includable>
                     <b:includable id='postBodySnippet' var='post'>
   <div class='post-body entry-content' expr:id='&quot;post-snippet-&quot; + data:post.id'>
-    <b:if cond='data:post.featuredImage and not data:view.isMultipleItems'>
-      <div class='snippet-thumbnail-container'>
-        <div class='snippet-thumbnail' expr:style='&quot;background-image:url(&quot; + resizeImage(data:post.featuredImage, 800, &quot;16:9&quot;).escaped + &quot;)&quot;'>
-        </div>
-      </div>
-      <style>
-        .snippet-thumbnail-container{width:100%;}
-        .snippet-thumbnail{
-          display:block;width:100%;
-          aspect-ratio:16/9;
-          background-size:cover;background-position:center;
-          border-radius:12px;
-        }
-      </style>
-    </b:if>
+    <b:with value='data:post.featuredImage ? data:post.featuredImage : data:post.firstImageUrl' var='thumb'>
+      <b:if cond='not data:view.isMultipleItems and data:thumb'>
+        <figure class='post-snippet-featured'>
+          <b:if cond='data:thumb.url'>
+            <img class='post-snippet-featured-image' expr:alt='data:post.title' expr:src='data:thumb.url' loading='lazy'/>
+          <b:else/>
+            <img class='post-snippet-featured-image' expr:alt='data:post.title' expr:src='data:thumb' loading='lazy'/>
+          </b:if>
+        </figure>
+      </b:if>
+    </b:with>
     <div style='clear: both;'/>
   </div>
 </b:includable>
