@@ -240,6 +240,9 @@ display:table
 .clearboth{
 clear:both
 }
+*,*::before,*::after{
+box-sizing:border-box;
+}
 #comments .comment .comment-actions,.subscribe-popup .FollowByEmail .follow-by-email-submit{
 background:transparent;
 border:0;
@@ -1186,7 +1189,8 @@ background-color:$(body.background.color);
 background-size:cover;
 font:$(body.text.font);
 margin:0;
-min-height:100vh
+min-height:100vh;
+overflow-x:hidden
 }
 body,h3,h3.title{
 color:$(body.text.color)
@@ -1247,62 +1251,64 @@ z-index:0
 .centered{
 margin:0 auto;
 position:relative;
-width:$(3 * posts.width.stream + 2 * 16px + 15px + sidebar.width)
+width:100%;
+max-width:$(3 * posts.width.stream + 2 * 16px + 15px + sidebar.width);
+padding:0 15px
 }
 .centered .main,.centered .main-container{
-float:$startSide
+float:none;
+width:100%
 }
 .centered .main{
 padding-bottom:1em
 }
-.centered .centered-bottom:after{
-clear:both;
-content:"";
-display:table
+.centered-bottom{
+display:flex;
+align-items:flex-start;
+gap:16px
 }
-@media (min-width:$(3 * posts.width.stream + 2 * 16px + 143px + 15px + sidebar.width + 1px)){
+.centered-bottom .main-container{
+flex:1 1 auto;
+min-width:0
+}
+.centered-bottom .sidebar-container{
+flex:0 0 $(sidebar.width);
+width:$(sidebar.width)
+}
 .page_body.has-vertical-ads .centered{
-width:$(3 * posts.width.stream + 2 * 16px + 143px + 15px + sidebar.width)
+max-width:$(3 * posts.width.stream + 2 * 16px + 143px + 15px + sidebar.width)
 }
-}
-@media (min-width:$(2 * posts.width.stream + 1 * 16px + 143px + 15px + sidebar.width + 1px)) and (max-width:$(3 * posts.width.stream + 2 * 16px + 15px + sidebar.width)){
+@media (max-width:1200px){
 .centered{
-width:$(2 * posts.width.stream + 1 * 16px + 15px + sidebar.width)
+max-width:$(2 * posts.width.stream + 1 * 16px + 15px + sidebar.width)
 }
-}
-@media (min-width:$(2 * posts.width.stream + 1 * 16px + 143px + 15px + sidebar.width + 1px)) and (max-width:$(3 * posts.width.stream + 2 * 16px + 143px + 15px + sidebar.width)){
 .page_body.has-vertical-ads .centered{
-width:$(2 * posts.width.stream + 1 * 16px + 143px + 15px + sidebar.width)
+max-width:$(2 * posts.width.stream + 1 * 16px + 143px + 15px + sidebar.width)
 }
 }
-@media (max-width:$(2 * posts.width.stream + 1 * 16px + 143px + 15px + sidebar.width)){
+@media (max-width:900px){
+.centered-bottom{
+flex-wrap:wrap
+}
+.centered-bottom .sidebar-container{
+flex-basis:$(sidebar.width);
+flex-grow:1
+}
+}
+@media (max-width:745px){
 .centered{
-width:$(posts.width.stream + 15px + sidebar.width)
+max-width:100%
+}
+.centered-bottom{
+flex-direction:column
+}
+.centered-bottom .sidebar-container{
+width:100%;
+flex:1 1 100%
 }
 }
-@media (max-width:$(posts.width.stream + 15px + sidebar.width)){
-.centered{
-max-width:600px;
+.hero,.main,.main-container,.post-filter-message,.top-nav .section{
 width:100%
-}
-}
-.hero,.main,.main-container,.post-filter-message,.top-nav .section{
-width:$(3 * posts.width.stream + 2 * 16px)
-}
-@media (min-width:$(2 * posts.width.stream + 1 * 16px + 143px + 15px + sidebar.width + 1px)) and (max-width:$(3 * posts.width.stream + 2 * 16px + 15px + sidebar.width)){
-.hero,.main,.main-container,.post-filter-message,.top-nav .section{
-width:$(2 * posts.width.stream + 1 * 16px)
-}
-}
-@media (min-width:$(2 * posts.width.stream + 1 * 16px + 143px + 15px + sidebar.width + 1px)) and (max-width:$(3 * posts.width.stream + 2 * 16px + 143px + 15px + sidebar.width)){
-.page_body.has-vertical-ads .post-wrapper.hero,.page_body.has-vertical-ads .feed-view .post-wrapper.hero,.page_body.has-vertical-ads .main,.page_body.has-vertical-ads .main-container,.page_body.has-vertical-ads .post-filter-message,.page_body.has-vertical-ads .top-nav .section{
-width:$(2 * posts.width.stream + 1 * 16px)
-}
-}
-@media (max-width:$(2 * posts.width.stream + 1 * 16px + 143px + 15px + sidebar.width)){
-.hero,.main,.main-container,.post-filter-message,.top-nav .section{
-width:auto
-}
 }
 .widget .title{
 font-size:$(body.text.font.size * 1.125);
@@ -2133,16 +2139,18 @@ background-color:$(posts.background.color);
 position:relative
 }
 .feed-view .blog-posts{
-margin-$endSide:-15px;
-width:calc(100% + 15px)
+display:grid;
+gap:16px;
+grid-template-columns:repeat(auto-fit,minmax(clamp(240px,33vw,$(posts.width.stream)),1fr));
+margin:0;
+width:100%
 }
 .feed-view .post-wrapper{
 border-radius:$(posts.border.radius);
-float:$startSide;
 overflow:hidden;
 -webkit-transition:box-shadow .3s cubic-bezier(.4,0,.2,1);
 transition:box-shadow .3s cubic-bezier(.4,0,.2,1);
-width:$(posts.width.stream)
+width:100%
 }
 .feed-view .post-wrapper:hover{
 box-shadow:0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2)
@@ -2167,10 +2175,7 @@ background-color:$(posts.background.color.inverse)
 opacity:.7
 }
 .feed-view .inline-ad,.feed-view .post-wrapper{
-margin-$endSide:15px;
-margin-$startSide:0;
-margin-bottom:15px;
-margin-top:0
+margin:0
 }
 .feed-view .post-wrapper.hero .post-title a{
 font-size:$(posts.title.font.size * 5/6);
@@ -2350,21 +2355,13 @@ width:$(labels.font.size * 1.5 + 8px)
 .feed-view .centered{
 padding-right:0
 }
-.feed-view .centered .main-container{
-float:none
-}
 .feed-view .blog-posts{
+grid-template-columns:repeat(auto-fit,minmax(clamp(240px,50vw,$(posts.width.stream)),1fr));
 margin-$endSide:0;
-width:auto
-}
-.feed-view .post-wrapper{
-float:none
-}
-.feed-view .post-wrapper.hero{
-width:$(posts.width.stream + 15px + sidebar.width)
+width:100%
 }
 .feed-view .page_body .centered div.widget.FeaturedPost,.feed-view div.widget.Blog{
-width:$(posts.width.stream)
+width:100%
 }
 .post-filter-message,.top-nav{
 margin-top:32px
@@ -2390,17 +2387,16 @@ display:none
 display:block
 }
 }
-@media (max-width:$(posts.width.stream + 15px + sidebar.width)){
-.feed-view .centered .main{
-float:none;
-width:100%
+@media (max-width:745px){
+.feed-view .blog-posts{
+grid-template-columns:1fr
 }
 .feed-view .centered .centered-bottom,.feed-view .centered-bottom .hero.post-wrapper,.feed-view .centered-bottom .post-wrapper{
-max-width:600px;
-width:auto
+max-width:100%;
+width:100%
 }
 .feed-view #header{
-width:auto
+width:100%
 }
 .feed-view .page_body .centered div.widget.FeaturedPost,.feed-view div.widget.Blog{
 top:50px;
@@ -2443,7 +2439,7 @@ width:auto
 margin:0 0 15px
 }
 .feed-view .inline-ad,.feed-view .post-wrapper{
-margin:0 8px 16px
+margin:0
 }
 .feed-view .post-labels{
 display:none
