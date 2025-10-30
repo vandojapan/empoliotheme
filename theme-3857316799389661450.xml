@@ -3,8 +3,38 @@
 <html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='vegeclub.xml' b:templateVersion='1.4.0' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
 <link href='https://fonts.googleapis.com' rel='preconnect'/>
 <link href='https://fonts.gstatic.com' link='crossorigin' rel='preconnect'/>
-<link href='https://fonts.googleapis.com/css2?family=Kosugi+Maru&amp;family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&amp;display=swap' rel='stylesheet'/>
-<script charset='utf-8' src='//typesquare.com/3/tsst/script/ja/typesquare.js?5ce39d818a0c4e0f9a713ec5ac1e02ec' type='text/javascript'/>
+<link href='https://fonts.googleapis.com/css2?family=Kosugi+Maru&amp;family=Nunito&amp;family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&amp;display=swap' rel='stylesheet'/>
+<script type='text/javascript'>
+//<![CDATA[
+(function(d) {
+  var config = {
+    kitId: 'ron4zgw',
+    scriptTimeout: 3000,
+    async: true
+  },
+  h = d.documentElement,
+  t = setTimeout(function () {
+    h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+  }, config.scriptTimeout),
+  tk = d.createElement("script"),
+  f = false,
+  s = d.getElementsByTagName("script")[0],
+  a;
+
+  h.className += " wf-loading";
+  tk.src = "https://use.typekit.net/" + config.kitId + ".js";
+  tk.async = true;
+  tk.onload = tk.onreadystatechange = function () {
+    a = this.readyState;
+    if (f || (a && a !== "complete" && a !== "loaded")) return;
+    f = true;
+    clearTimeout(t);
+    try { Typekit.load(config); } catch (e) {}
+  };
+  s.parentNode.insertBefore(tk, s);
+})(document);
+//]]>
+</script>
   <head>
     <meta content='width=device-width, initial-scale=1' name='viewport'/>
     <title><data:view.title.escaped/></title>
@@ -90,8 +120,8 @@
   <Variable name="body.background" description="Background" type="background" color="#f7f7f7" default="$(color) none repeat scroll top left"  value="$(color) none repeat scroll top left"/>
   <Variable name="body.text.font" description="Font" type="font" default="$(generalFont)"  value="normal 400 16px Lato"/>
   <Variable name="body.text.color" description="Color" type="color" default="#000000"  value="#000000"/>
-  <Variable name="body.link.color" description="Link color" type="color" default="$(keycolor)"  value="#4285F4"/>
-  <Variable name="body.link.visited.color" description="Visited Link Color" type="color" default="$(body.link.color)"  value="#eb75f4"/>
+  <Variable name="body.link.color" description="Link color" type="color" default="$(keycolor)"  value="#C6DAFC"/>
+  <Variable name="body.link.visited.color" description="Visited Link Color" type="color" default="$(body.link.color)"  value="#E1BEE7"/>
   <Variable name="body.link.hover.color" description="Link Hover Color" type="color" default="$(body.link.color)"  value="#3367D6"/>
   <Variable name="body.button.font" description="Button font" type="font" default="$(textButtonFont)"  value="normal 500 12px Lato"/>
   <Variable name="body.button.color" description="Button color" type="color" default="$(keycolor)"  value="#000000"/>
@@ -127,7 +157,7 @@
   <Variable name="posts.text.lineHeight" description="Post text line height" min="10px" max="60px" type="length" default="$(bodyLineHeight)"  value="32px"/>
   <Variable name="posts.snippet.text.font" description="Post snippet text font" type="font" default="$(bodyFontSmall)"  value="400 14px Merriweather, Georgia, serif"/>
   <Variable name="posts.snippet.text.lineHeight" description="Post snippet text line height" min="10px" max="60px" type="length" default="$(bodyLineHeightSmall)"  value="24px"/>
-  <Variable name="posts.link.color" description="Post link color" type="color" default="$(body.link.color)"  value="#4285F4"/>
+  <Variable name="posts.link.color" description="Post link color" type="color" default="$(body.link.color)"  value="#3367d6"/>
   <Variable name="posts.icons.color" description="Post icons color" type="color" default="$(posts.link.color)"  value="#000000"/>
   <Variable name="posts.border.radius" description="Post border radius" type="length" default="0px" min="0px" max="32px"  value="0px"/>
   <Variable name="postFilter.background.color" description="Filter background color" type="color" default="$(keycolor)"  value="#000000"/>
@@ -170,8 +200,8 @@
 <Group description="Search bar" selector="div.search">
   <Variable name="search.text.color" description="Text color" type="color" default="$(offBlack)"  value="#000000"/>
   <Variable name="search.icon.color" description="Icon color" type="color" default="rgba(0, 0, 0, 0.38)"  value="rgba(0,0,0,0.376)"/>
-  <Variable name="search.font" description="Text font" type="font" default="$(searchFont)"  value="normal 400 16px Lato"/>
-  <Variable name="search.placeholder.font" description="Placeholder text font" type="font" default="$(searchPlaceholderFont)"  value="italic 400 15px Merriweather, Georgia, serif"/>
+  <Variable name="search.font" description="Text font" type="font" default="$(searchFont)"  value="normal 400 16px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+  <Variable name="search.placeholder.font" description="Placeholder text font" type="font" default="$(searchPlaceholderFont)"  value="italic 400 15px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
   <Variable name="search.placeholder.color" description="Placeholder text color" type="color" default="rgba(0, 0, 0, 0.38)"  value="rgba(0,0,0,0.376)"/>
   <Variable name="search.background.color" description="Background color" type="color" default="rgba(0, 0, 0, 0.03)"  value="rgba(0,0,0,0.027)"/>
 </Group>
@@ -713,7 +743,7 @@ body#layout .bg-photo,body#layout .bg-photo-overlay{
 display:none
 }
 body#layout .centered{
-max-width:954px
+max-width:100%
 }
 body#layout .navigation{
 display:none
@@ -1360,7 +1390,7 @@ $startSide:56px;
 position:relative
 }
 #comments a,.post-wrapper a{
-color:$(posts.link.color)
+color:$(posts.link.color);
 }
 div.widget.Blog .blog-posts .post-outer{
 border:0
@@ -1812,33 +1842,28 @@ padding:12px 8px
 background:none;
 border:0;
 color:$(search.text.color);
-font:$(search.font);
+font-style:italic;
 outline:none;
 padding:0 8px
 }
 .search .search-input input::-webkit-input-placeholder{
 color:$(search.placeholder.color);
-font:$(search.placeholder.font);
 line-height:48px
 }
 .search .search-input input::-moz-placeholder{
 color:$(search.placeholder.color);
-font:$(search.placeholder.font);
 line-height:48px
 }
 .search .search-input input:-ms-input-placeholder{
 color:$(search.placeholder.color);
-font:$(search.placeholder.font);
 line-height:48px
 }
 .search .search-input input::-ms-input-placeholder{
 color:$(search.placeholder.color);
-font:$(search.placeholder.font);
 line-height:48px
 }
 .search .search-input input::placeholder{
 color:$(search.placeholder.color);
-font:$(search.placeholder.font);
 line-height:48px
 }
 .search .dim-overlay{
@@ -2230,8 +2255,7 @@ overflow-y:hidden
 }
 @media (min-width:$(posts.width.stream + 15px + sidebar.width + 1px)){
 .feed-view .post-title a .snippet-container{
-height:$(posts.title.font.size * 2);
-max-height:$(posts.title.font.size * 2)
+max-height:100%;
 }
 .feed-view .post-title a .snippet-fade{
 background:-webkit-linear-gradient($startSide,$(posts.background.color) 0,$(posts.background.color) 20%,$(posts.background.color.transparent) 100%);
@@ -2427,9 +2451,8 @@ display:none
 .feed-view .post-wrapper .snippet-thumbnail{
 background-size:cover;
 display:block;
-height:184px;
 margin:0;
-max-height:184px;
+max-height:100%;
 width:100%
 }
 .feed-view .post-wrapper.hero .snippet-thumbnail,.feed-view .post-wrapper.hero .snippet-thumbnail-container{
@@ -2655,125 +2678,93 @@ width:1px
   display: none !important;
 }
 
-/* // CHANGED: Feed/list thumbnails are trimmed to 16:9 while keeping placeholders */
-.feed-view .snippet-thumbnail-container,
-.feed-view .item-thumbnail {
+/* 2. サムネイル画像を16:9に固定 */
+.snippet-thumbnail-container,
+.item-thumbnail {
   position: relative;
   width: 100%;
-  height: 0;
-  padding-top: 56.25%; /* 16:9 ratio */
-  aspect-ratio: 16 / 9;
+  padding-top: 56.25%; /* 16:9 比率 */
   overflow: hidden;
   background-color: #616161;
 }
 
-.feed-view .snippet-thumbnail,
-.feed-view .item-thumbnail a,
-.feed-view .item-thumbnail img {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
+.snippet-thumbnail,
+.item-thumbnail img,
+.item-thumbnail a {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
 }
 
-.feed-view .snippet-thumbnail {
+/* 16:9の箱は “padding-top だけで高さを作る”。heightは0に固定 */
+.PopularPosts .item-thumbnail{
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  height: 0 !important;              /* ←ココがポイント！ */
+  padding-top: 56.25% !important;    /* 16:9 */
+  overflow: hidden !important;
+  background-color: #616161;         /* 任意 */
+}
+
+/* a はレイアウト用のブロックだけにして、高さは持たせない */
+.PopularPosts .item-thumbnail a{
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;           /* ←100%をやめる */
+  line-height: 0 !important;         /* 画像下のスキマ防止 */
+}
+
+/* 画像だけを絶対配置でフィットさせる */
+.PopularPosts .item-thumbnail img{
+  position: absolute !important;
+  inset: 0 !important;               /* top/right/bottom/left:0 */
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+/* 記事ページの先頭画像用 */
+.item-view .snippet-thumbnail-container {
+  padding-top: 0% !important;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.item-view .snippet-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
 }
-
-.feed-view .item-thumbnail img {
-  object-fit: cover;
-}
-
-.feed-view .item-thumbnail a {
-  overflow: hidden;
-}
-
-/* // CHANGED: Natural image ratios inside single or feed item bodies */
-.item-view .post-snippet-featured,
-.feed-view .post-snippet-featured {
-  margin: 0 0 24px;
-}
-
-.item-view .post-snippet-featured-image,
-.feed-view .post-snippet-featured-image {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
-/* // CHANGED: Shared 16:9 crop for PopularPosts thumbnails */
-.PopularPosts .item-thumbnail {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 0;
-  padding-top: 56.25%;
-  overflow: hidden;
-  background-color: #616161;
-}
-
-.PopularPosts .item-thumbnail img {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.PopularPosts .item-thumbnail a {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: block;
-  line-height: 0;
-}
-
-/* // CHANGED: Two-column cards on desktop */
-@media (min-width: 1024px) {
-  .feed-view .blog-posts {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-    margin: 0;
-    width: 100%;
-  }
-
-  .feed-view .blog-posts .post-outer,
-  .feed-view .post-wrapper,
-  .feed-view .inline-ad {
-    margin: 0;
-    width: auto;
-    float: none;
-  }
-
-  .feed-view .post-wrapper.hero {
-    grid-column: 1 / -1;
-  }
-
-  .feed-view .inline-ad {
-    grid-column: 1 / -1;
-  }
-}
-
 
 
 * {
-  font-family: Lato,"Maru Folk Medium","Kosugi Maru", sans-serif !important;
-  font-weight: 400;
-	font-smooth:auto;
+  font-family: Nunito,"fot-seurat-pron","Kosugi Maru", sans-serif !important;
+  font-weight: 600;
+	-webkit-font-smoothing:antialiased; 
   font-style: normal;
+}
+    .nomadBtn2 {
+  color: #FFF !important;
+  border-radius: 50em 50em 50em 50em;
+  background: #323232;
+  padding: .7em 2em;
+  display: inline-block;
+  text-decoration: none !important;
+  margin: 15px 0;
 }
     ]]></b:skin>
 
@@ -2980,14 +2971,10 @@ width:1px
        <b:includable id='postBodySnippet' var='post'>
   <div class='post-body entry-content' expr:id='&quot;post-snippet-&quot; + data:post.id'>
     <b:with value='data:post.featuredImage ? data:post.featuredImage : data:post.firstImageUrl' var='thumb'>
-      <b:if cond='not data:view.isMultipleItems and data:thumb'>
-        <figure class='post-snippet-featured'>
-          <b:if cond='data:thumb.url'>
-            <img class='post-snippet-featured-image' expr:alt='data:post.title' expr:src='data:thumb.url' loading='lazy'/>
-          <b:else/>
-            <img class='post-snippet-featured-image' expr:alt='data:post.title' expr:src='data:thumb' loading='lazy'/>
-          </b:if>
-        </figure>
+      <b:if cond='data:thumb and not data:view.isMultipleItems'>
+        <div class='snippet-thumbnail-container'>
+          <div class='snippet-thumbnail' expr:style='&quot;background-image:url(&quot; + resizeImage(data:thumb, 800, &quot;16:9&quot;).escaped + &quot;)&quot;'/>
+        </div>
       </b:if>
     </b:with>
     <div style='clear: both;'/>
@@ -4061,17 +4048,21 @@ width:1px
 </b:includable>
                     <b:includable id='postBodySnippet' var='post'>
   <div class='post-body entry-content' expr:id='&quot;post-snippet-&quot; + data:post.id'>
-    <b:with value='data:post.featuredImage ? data:post.featuredImage : data:post.firstImageUrl' var='thumb'>
-      <b:if cond='not data:view.isMultipleItems and data:thumb'>
-        <figure class='post-snippet-featured'>
-          <b:if cond='data:thumb.url'>
-            <img class='post-snippet-featured-image' expr:alt='data:post.title' expr:src='data:thumb.url' loading='lazy'/>
-          <b:else/>
-            <img class='post-snippet-featured-image' expr:alt='data:post.title' expr:src='data:thumb' loading='lazy'/>
-          </b:if>
-        </figure>
-      </b:if>
-    </b:with>
+    <b:if cond='data:post.featuredImage and not data:view.isMultipleItems'>
+      <div class='snippet-thumbnail-container'>
+        <div class='snippet-thumbnail' expr:style='&quot;background-image:url(&quot; + resizeImage(data:post.featuredImage, 800, &quot;16:9&quot;).escaped + &quot;)&quot;'>
+        </div>
+      </div>
+      <style>
+        .snippet-thumbnail-container{width:100%;}
+        .snippet-thumbnail{
+          display:block;width:100%;
+          aspect-ratio:16/9;
+          background-size:cover;background-position:center;
+          border-radius:12px;
+        }
+      </style>
+    </b:if>
     <div style='clear: both;'/>
   </div>
 </b:includable>
@@ -4883,6 +4874,23 @@ width:1px
       </b:with>
 
       <b:section class='footer' id='footer' name='Footer' showaddelement='false' tag='footer'>
+        <b:widget id='HTML1' locked='false' title='' type='HTML' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='content'><![CDATA[<div style="text-align:center;max-width: 100%; overflow:hidden;">
+  <p style="font-size:0.9em; color:#666; font-style:italic; margin:0 auto; line-height:1.6;">
+    この壁紙は複数の著作物をもとにデザイン加工しています。<br/>権利の所在が複雑であるため、再頒布、二次利用、商用利用は禁止いたします。<br />
+    ご質問や削除依頼がございましたら、速やかに対応いたしますので
+    <a href="mailto:vandojapan@gmail.com" style="color:#666; text-decoration:underline;font-style:italic;">ご連絡ください</a>。
+  </p>
+</div>]]></b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+  <b:include name='widget-title'/>
+  <div class='widget-content'>
+    <data:content/>
+  </div>
+</b:includable>
+        </b:widget>
         <b:widget id='Attribution1' locked='true' title='' type='Attribution' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='copyright'/>
